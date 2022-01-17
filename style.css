@@ -1,0 +1,133 @@
+body {
+	font-family: sans-serif;
+	background-color: rgb(0, 0, 0);
+	text-align: center;
+}
+
+.colorful {
+	display: inline;
+	transition: color 1s ease-in-out;
+	margin: 25px;
+	color: white;
+}
+
+#score {
+	color: white;
+}
+
+#start-game {
+	color: white;
+	background-color: black;
+	transition: .3s;
+	border: 2px solid red;
+	margin: 20px;
+	padding: 15px;
+	font-size: medium;
+	font-family: sans-serif;
+	font-weight: bold;
+	border-radius: 20%;
+	cursor: pointer;
+}
+
+#start-game:hover {
+	background-color: red;
+	transition: .3s;
+}
+
+#start-game:active {
+	background-color: rgb(155, 1, 1);
+}
+
+#reset {
+	color: white;
+	background-color: black;
+	transition: .3s;
+	border: 2px solid red;
+	margin: 20px;
+	padding: 15px;
+	font-size: medium;
+	font-family: sans-serif;
+	font-weight: bold;
+	border-radius: 20%;
+	cursor: pointer;
+}
+
+#reset:hover {
+	background-color: red;
+	transition: .3s;
+}
+
+#reset:active {
+	background-color: rgb(155, 1, 1);
+}
+
+#game {
+	display: inline-grid;
+	margin: auto;
+	height: 75vh;
+	width: 70vw;
+	grid-template-columns: repeat(5, minmax(150px, 1fr));
+	grid-auto-rows: repeat(2, minmax(150px, 1fr));
+	grid-gap: 1em;
+	perspective: 800px;
+}
+
+#game .card {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	width: 100%;
+	height: 200px;
+	transition: transform .8s;
+	transform-style: preserve-3d;
+	/* position: relative; */
+}
+
+.top {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+}
+
+.front {
+	border: 4px solid rgb(255, 255, 255);
+	border-radius: 10%;
+	background: linear-gradient(45deg, orange, red, purple, blue, green);
+}
+
+.no-click {
+	pointer-events: none;
+}
+
+.back {
+	border: 4px solid rgb(255, 255, 255);
+	border-radius: 10%;
+	transform: rotateY(180deg);
+}
+
+.card.flipped {
+	transform: rotateY(180deg);
+}
+
+.red {
+	background-color: red;
+}
+
+.green {
+	background-color: green;
+}
+
+.blue {
+	background-color: blue;
+}
+
+.orange {
+	background-color: orange;
+}
+
+.purple {
+	background-color: purple;
+}
