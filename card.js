@@ -3,17 +3,24 @@ const section = document.querySelector('.container');
 const COLORS = [ 'red', 'blue', 'green', 'orange', 'purple', 'red', 'blue', 'green', 'orange', 'purple' ];
 const resetButton = document.querySelector('#reset');
 const startButton = document.querySelector('#start-game');
+let score = document.querySelector('#score');
+let shuffledColors = shuffle(COLORS);
+let noClicking = false;
+let clickedCard1 = '';
+let clickedCard2 = '';
+let counter = 0;
+let myScore = 0;
 
+//reset button functionality
 resetButton.addEventListener('click', () => {
 	location.reload();
 });
-
+//start button functionality
 startButton.addEventListener('click', () => {
 	gameContainer.innerHTML = '';
 	createDivsForColors(shuffledColors);
 	startButton.classList.add('no-click');
 });
-
 //starter code
 function shuffle(array) {
 	let counter = array.length;
@@ -26,9 +33,6 @@ function shuffle(array) {
 	}
 	return array;
 }
-
-let shuffledColors = shuffle(COLORS);
-
 //edited starter code for my card flippy divs
 function createDivsForColors(colorArray) {
 	for (let color of colorArray) {
@@ -39,7 +43,6 @@ function createDivsForColors(colorArray) {
 		gameContainer.append(card);
 	}
 }
-
 //create the card flippy divs... there's probably a less complicated way of doing this?
 function createCard() {
 	const card = document.createElement('div');
@@ -54,13 +57,13 @@ function createCard() {
 	card.append(bottom);
 	return card;
 }
-
-//have card tracker variables
-//card trackers tracks first two clicked cards
-//set e.target to card tracker variable, can access nested div with class = 'color' from there
-let clickedCard1 = '';
-let clickedCard2 = '';
-
+//function to provide message upon winning
+function winner() {
+	let congrats = document.createElement('h1');
+	congrats.classList.add('colorful');
+	congrats.innerText = 'YOU DID IT!';
+	return congrats;
+};
 //checks for same color; if same, clickedCard values reset to empty string, eventListener removed.
 //if different, cards flipped, clickedCard values reset
 function colorCheck() {
@@ -70,6 +73,7 @@ function colorCheck() {
 			clickedCard2.classList.toggle('flipped');
 			clickedCard1 = '';
 			clickedCard2 = '';
+			noClicking = false;
 		}, 1000);
 	} else {
 		clickedCard1.removeEventListener('click', handleCardClick);
@@ -78,6 +82,7 @@ function colorCheck() {
 		console.log(counter);
 		clickedCard1 = '';
 		clickedCard2 = '';
+		noClicking = false;
 		if (counter === COLORS.length) {
 			console.log('nice');
 			let congrats = winner();
@@ -86,23 +91,12 @@ function colorCheck() {
 		}
 	}
 }
-
-function winner() {
-	let congrats = document.createElement('h1');
-	congrats.classList.add('colorful');
-	congrats.innerText = 'YOU DID IT!';
-	return congrats;
-}
-//compare card trackers with func() { if (card1 != card2)
-// setTimeout, flip cards after 1 s}
-//should probably brush up on ternary operators? this is a lot of conditionals.
-let counter = 0;
-let myScore = 0;
-let score = document.querySelector('#score');
+//compare card trackers
 function handleCardClick(e) {
 	let myCard = e.target.parentElement;
 	myScore++;
 	score.innerText = myScore;
+	if (noClicking) return;
 	if (myCard.classList.contains('flipped')) {
 		return;
 	}
@@ -114,12 +108,16 @@ function handleCardClick(e) {
 		clickedCard2 = myCard;
 	}
 	if (clickedCard1 && clickedCard2) {
+		noClicking = true;
 		colorCheck();
 	}
 }
 
+
+//BELOW: the...attempts.
+
 //to prevent excessive clicking
-//...I could not get this solution to work
+//...I could not get this solution to work. Went with boolean variable from solution code.
 // function noClick() {
 // 	const cards = document.querySelectorAll('.top');
 // 	for (let card of cards) {
@@ -133,11 +131,6 @@ function handleCardClick(e) {
 // 		card.classList.remove('no-click');
 // 	}
 // }
-
-// when the DOM loads
-
-//YOUR TASK:
-// 6. Make sure that you can not click too quickly and guess more than two cards at a time. - hmm?? how to do this... css pointer-events: none to make mouse clicks stop
 
 //FIRST ATTEMPT: handleCardClick function
 //have counter = 0; when counter reaches 2, call function to compare the 2 cards with class = 'flipped'
