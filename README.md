@@ -9,10 +9,11 @@ Press RETRY to try again.
 (RETRY refreshes the page).
 
 Functionality:
-app.js
-header.js
-style.css
-index.html
+
+app.js (runs program)
+header.js (changes color of .colorful elements)
+style.css (needed for card flip animation, etc)
+index.html (displays program)
 
 1. createCard() creates a CARD (div with two div children that flip to reveal colors)
 2. createDivsForColors() calls createCard() and creates 10 CARDS with colors from the shuffledColors array.
