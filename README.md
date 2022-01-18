@@ -9,8 +9,12 @@ Press RETRY to try again.
 (RETRY refreshes the page).
 
 Functionality:
+app.js
+header.js
+style.css
+index.html
+
 1. createCard() creates a CARD (div with two div children that flip to reveal colors)
 2. createDivsForColors() calls createCard() and creates 10 CARDS with colors from the shuffledColors array.
 3. handleCardClick() keeps track of up to two clicked cards, flips them, and compares them using colorCheck(). If the two cards are the same color, they stay flipped and cannot be clicked again. If they are not, they turn back over.
 4. When all cards are flipped, game over; winner() creates a special message for you.
-
